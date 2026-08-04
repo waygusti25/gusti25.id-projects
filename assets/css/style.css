@@ -1,44 +1,65 @@
 :root {
-  /* Midnight Blue Background */
+  /* ============================================================
+     Theme: Midnight / Emerald — technology gateway
+     ============================================================ */
   --bg-dark: #040D14;
-  /* Emerald / Cyan Glow */
-  --glow-core: rgba(16, 185, 129, 0.35); /* Emerald Green */
-  --glow-edge: rgba(6, 182, 212, 0.15); /* Cyan */
-  
+
+  --glow-core: rgba(16, 185, 129, 0.35); /* Emerald */
+  --glow-edge: rgba(6, 182, 212, 0.15);  /* Cyan */
+  --accent: #10B981;
+  --accent-soft: #34D399;
+  --accent-cyan: #06B6D4;
+
   --text-main: #F8FAFC;
   --text-muted: #94A3B8;
-  --glass-bg: rgba(15, 23, 42, 0.4);
+  --text-soft: #E7EAF0;
+
+  --glass-bg: rgba(15, 23, 42, 0.55);
   --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: 24px;
+  --orb-blur: 65px;
+
+  --radius-panel: 24px;
+  --shadow-panel: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --focus-ring: 2px solid #34D399;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { overflow-x: hidden; }
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-main);
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
 }
 
-/* The Emerald/Cyan Glow Orb */
+/* Ambient glow orb */
 .ambient-orb {
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: clamp(320px, 45vw, 600px);
+  height: clamp(320px, 45vw, 600px);
   background: radial-gradient(circle, var(--glow-core) 0%, var(--glow-edge) 50%, transparent 70%);
   border-radius: 50%;
-  filter: blur(65px);
+  filter: blur(var(--orb-blur));
   z-index: 0;
-  animation: pulse 9s infinite alternate ease-in-out;
+  animation: pulse 9s infinite alternate var(--ease);
+  will-change: transform, opacity;
+  pointer-events: none;
 }
 
 @keyframes pulse {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+  0%   { transform: scale(1) translate(0, 0); opacity: 0.7; }
   100% { transform: scale(1.15) translate(-20px, 20px); opacity: 1; }
 }
 
@@ -47,35 +68,38 @@ body {
   z-index: 10;
   width: 100%;
   max-width: 800px;
-  padding: 2rem;
+  padding: clamp(1rem, 4vw, 2rem);
 }
 
 /* Glassmorphism Panel */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 4rem 3rem;
+  border-radius: var(--radius-panel);
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem);
   text-align: center;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-panel);
+}
+
+/* Solid fallback for browsers without backdrop-filter support */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel { background: rgba(4, 13, 20, 0.92); }
 }
 
 .logo-mark {
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.15rem);
   font-weight: 800;
   letter-spacing: 3px;
-  margin-bottom: 3rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
   color: var(--text-muted);
 }
 
-.logo-mark span {
-  color: #10B981; /* Emerald accent */
-}
+.logo-mark span { color: var(--accent); }
 
 .title {
-  font-size: 2.25rem;
+  font-size: clamp(1.5rem, 1.1rem + 2.2vw, 2.25rem);
   font-weight: 300;
   line-height: 1.4;
   margin-bottom: 1rem;
@@ -84,7 +108,9 @@ body {
 
 .title .highlight {
   font-weight: 800;
-  background: linear-gradient(135deg, #34D399, #06B6D4);
+  color: var(--accent);
+  background: linear-gradient(135deg, var(--accent-soft), var(--accent-cyan));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: block;
@@ -92,8 +118,8 @@ body {
 }
 
 .role {
-  font-family: monospace;
-  font-size: 1rem;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: clamp(0.85rem, 0.78rem + 0.35vw, 1rem);
   color: var(--text-muted);
   letter-spacing: 0.05em;
   margin-bottom: 2.5rem;
@@ -107,15 +133,22 @@ body {
 }
 
 .bio {
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 0.88rem + 0.35vw, 1.15rem);
   font-weight: 400;
   font-style: italic;
-  color: var(--text-main);
-  opacity: 0.9;
+  color: var(--text-soft);
 }
 
-@media (max-width: 768px) {
-  .title { font-size: 1.75rem; }
-  .glass-panel { padding: 3rem 1.5rem; }
-  .ambient-orb { width: 400px; height: 400px; }
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orb { animation: none; }
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+}
+
+@media (max-width: 420px) {
+  .ambient-orb { filter: blur(45px); }
 }
