@@ -20,6 +20,10 @@
   <!-- Main Content Container -->
   <main class="gateway-container">
     <div class="glass-panel">
+      <!-- Decorative glow: static breathing glow by default, upgraded to
+           cursor-tracking by the script below on fine-pointer (non-touch) devices -->
+      <div class="spotlight" aria-hidden="true"></div>
+
       <div class="logo-mark">G<span>25</span> / PROJECTS</div>
 
       <div class="welcome-text">
@@ -34,6 +38,35 @@
       </div>
     </div>
   </main>
+
+  <script>
+  (function () {
+    var panel = document.querySelector('.glass-panel');
+    var spot = document.querySelector('.spotlight');
+    if (!panel || !spot) return;
+
+    var canTrack = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!canTrack) return; // touch / coarse pointer: keep the CSS-only static glow
+
+    panel.classList.add('has-pointer-tracking');
+
+    var rect = panel.getBoundingClientRect();
+    spot.style.setProperty('--spot-x', (rect.width * 0.3) + 'px');
+    spot.style.setProperty('--spot-y', (rect.height * 0.22) + 'px');
+
+    var raf = null;
+    panel.addEventListener('mousemove', function (e) {
+      var r = panel.getBoundingClientRect();
+      var x = e.clientX - r.left;
+      var y = e.clientY - r.top;
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function () {
+        spot.style.setProperty('--spot-x', x + 'px');
+        spot.style.setProperty('--spot-y', y + 'px');
+      });
+    });
+  })();
+  </script>
 
 </body>
 </html>
