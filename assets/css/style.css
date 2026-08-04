@@ -1,1 +1,118 @@
+:root {
+  --bg-dark: #080C14;
+  --glow-core: rgba(245, 158, 11, 0.4); /* Warm Amber */
+  --glow-edge: rgba(252, 211, 77, 0.1); /* Champagne */
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --glass-bg: rgba(15, 23, 42, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* The Warm Glow Orb */
+.ambient-orb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--glow-core) 0%, var(--glow-edge) 50%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 0;
+  animation: pulse 8s infinite alternate ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+  100% { transform: scale(1.1) translate(20px, -20px); opacity: 1; }
+}
+
+.gateway-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+/* Glassmorphism Panel */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.logo-mark {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 3rem;
+  color: var(--text-muted);
+}
+
+.logo-mark span {
+  color: #F59E0B; /* Amber accent */
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.title .highlight {
+  font-weight: 800;
+  background: linear-gradient(135deg, #FDE68A, #F59E0B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.role {
+  font-family: monospace;
+  font-size: 1rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 2.5rem;
+}
+
+.divider {
+  height: 1px;
+  width: 60px;
+  background: var(--glass-border);
+  margin: 0 auto 2.5rem;
+}
+
+.bio {
+  font-size: 1.25rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-main);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .title { font-size: 1.75rem; }
+  .glass-panel { padding: 3rem 1.5rem; }
+  .ambient-orb { width: 400px; height: 400px; }
+}
