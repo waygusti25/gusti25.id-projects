@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Diseminasi PkM UNTAD x SMPN 21 Palu</title>
+  <meta name="description" content="Galeri karya bahan ajar digital guru SMPN 21 Palu — Program Pengabdian kepada Masyarakat, Prodi Pendidikan Bahasa Inggris, Universitas Tadulako.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#0F172A">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: {
+            navy: { 950: '#0A1020', 900: '#0F172A', 800: '#16213E', 700: '#1E2A4F', 600: '#293A66' },
+            gold: { 300: '#F1DBA0', 400: '#E7C579', 500: '#D4AF6A', 600: '#B4924F', 700: '#8F7440' }
+          },
+          boxShadow: {
+            card: '0 1px 2px rgba(15,23,42,0.04), 0 12px 24px -8px rgba(15,23,42,0.10)',
+            'card-hover': '0 4px 8px rgba(15,23,42,0.06), 0 24px 40px -12px rgba(15,23,42,0.18)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
+
+    /* Hero background: faint technical grid + one restrained gold glow */
+    .hero-pattern {
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(212, 175, 106, 0.18), transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: auto, 34px 34px, 34px 34px;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card-enter { animation: cardIn 0.35s ease-out both; }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .toast { animation: toastIn 0.25s ease-out both; }
+
+    .focus-gold:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(212, 175, 106, 0.35), 0 0 0 1px #B4924F;
+    }
+
+    .field-invalid { border-color: #DC2626 !important; }
+    .field-valid   { border-color: #16A34A !important; }
+
+    #toastRoot {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: calc(100vw - 2rem);
+    }
+
+    .modal-fullscreen {
+      max-width: 100vw !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      border-radius: 0 !important;
+    }
+
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: #F1F5F9; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <div id="toastRoot"></div>
+
+  <!-- Hero Header -->
+  <header class="relative bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 text-white overflow-hidden hero-pattern">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 pt-10 pb-8 md:pt-14 md:pb-12 relative z-10">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-wider uppercase text-gold-400 bg-white/5 border border-gold-500/25 rounded-full px-3 py-1 mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse"></span>
+            Program Pengabdian kepada Masyarakat &middot; 2026
+          </div>
+          <h1 class="text-2xl md:text-3xl lg:text-[2rem] font-extrabold leading-tight tracking-tight">
+            Portal Diseminasi PkM<br class="hidden sm:block">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">Universitas Tadulako</span> &times; SMPN 21 Palu
+          </h1>
+          <p class="mt-3 text-sm md:text-[15px] text-slate-300 max-w-xl leading-relaxed">
+            Galeri karya bahan ajar digital berbasis <span class="text-slate-100 font-medium">Deep Learning &amp; AI</span> — hasil pendampingan guru Prodi Pendidikan Bahasa Inggris FKIP Untad.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0 flex-wrap justify-start md:justify-end">
+          <div class="text-right">
+            <p id="heroWorkCount" class="text-2xl font-extrabold text-gold-400">0</p>
+            <p class="text-[11px] uppercase tracking-wide text-slate-400">Karya Terbit</p>
+          </div>
+          <div class="h-9 w-px bg-white/10"></div>
+          <div class="text-[11px] text-slate-400 leading-relaxed text-right">
+            <p class="text-slate-200 font-medium">projects.gusti25.id</p>
+            <p>/pkm-smp21-palu</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="h-[3px] bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow max-w-6xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <!-- Submission Form Section -->
+    <section class="lg:col-span-1 bg-white p-6 md:p-7 rounded-2xl shadow-card border border-slate-200 h-fit lg:sticky lg:top-6">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0">
+          <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+        </span>
+        <h2 class="text-base font-bold text-slate-900">Unggah Karya Guru</h2>
+      </div>
+      <p class="text-xs text-slate-500 mb-5">Isi formulir di bawah ini untuk menerbitkan karya Anda ke galeri.</p>
+
+      <form id="submissionForm" class="space-y-4" novalidate>
+        <div>
+          <label for="teacherName" class="block text-xs font-semibold text-slate-700 mb-1">
+            Nama Lengkap &amp; Gelar <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="teacherName" name="teacherName" required
+                 placeholder="Contoh: Nadrun, S.Pd., M.Pd."
+                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <div>
+          <label for="subjectCluster" class="block text-xs font-semibold text-slate-700 mb-1">
+            Rumpun Mata Pelajaran <span class="text-red-500">*</span>
+          </label>
+          <select id="subjectCluster" name="subjectCluster" required
+                  class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold bg-white">
+            <option value="">-- Pilih Rumpun --</option>
+            <option value="Bahasa">Rumpun Bahasa (Indonesia / Inggris)</option>
+            <option value="MIPA">Rumpun MIPA (IPA / Matematika)</option>
+            <option value="IPS &amp; PKn">Rumpun IPS &amp; PKn</option>
+            <option value="Lainnya">Mata Pelajaran Lainnya</option>
+          </select>
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <div>
+          <label for="workTitle" class="block text-xs font-semibold text-slate-700 mb-1">
+            Judul Bahan Ajar Digital <span class="text-red-500">*</span>
+          </label>
+          <input type="text" id="workTitle" name="workTitle" required maxlength="150"
+                 placeholder="Contoh: Modul Interaktif Ekosistem Teluk Palu"
+                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <div>
+          <label for="hotsDescription" class="block text-xs font-semibold text-slate-700 mb-1">
+            Deskripsi Pendekatan Deep Learning / HOTS <span class="text-red-500">*</span>
+          </label>
+          <textarea id="hotsDescription" name="hotsDescription" rows="3" required maxlength="500"
+                    placeholder="Jelaskan secara singkat studi kasus lokal Palu & pertanyaan HOTS yang diangkat..."
+                    class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400 resize-none"></textarea>
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <div>
+          <label for="canvaUrl" class="block text-xs font-semibold text-slate-700 mb-1">
+            Tautan Desain Canva <span class="text-red-500">*</span>
+          </label>
+          <input type="url" id="canvaUrl" name="canvaUrl" required
+                 placeholder="https://www.canva.com/design/..."
+                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <p class="text-[11px] text-slate-400 mt-1">Klik <span class="font-medium text-slate-500">Share &rarr; Anyone with the link</span> di Canva, lalu tempel tautannya di sini.</p>
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <div>
+          <label for="flipbookUrl" class="block text-xs font-semibold text-slate-700 mb-1">
+            Tautan Digital Flipbook <span class="text-red-500">*</span>
+          </label>
+          <input type="url" id="flipbookUrl" name="flipbookUrl" required
+                 placeholder="https://heyzine.com/flip-book/..."
+                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <p class="text-[11px] text-slate-400 mt-1">Ekspor dari <span class="font-medium text-slate-500">Heyzine</span> atau <span class="font-medium text-slate-500">FlipHTML5</span>, lalu salin tautan publiknya.</p>
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <button type="submit" id="submitBtn"
+                class="w-full bg-navy-900 hover:bg-navy-800 text-white font-semibold py-3 rounded-lg text-sm transition flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+          <span id="submitBtnIcon"><i data-lucide="send" class="w-4 h-4"></i></span>
+          <span id="submitBtnText">Unggah Karya ke Galeri</span>
+        </button>
+      </form>
+    </section>
+
+    <!-- Real-Time Gallery Section -->
+    <section class="lg:col-span-2 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+          <span class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          </span>
+          Galeri Diseminasi Real-Time
+        </h2>
+        <span id="cardCount" class="text-xs bg-navy-900/5 text-navy-900 px-3 py-1.5 rounded-full font-semibold border border-navy-900/10 inline-flex items-center gap-1.5 w-fit">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          0 Karya Terbit
+        </span>
+      </div>
+
+      <!-- Search & Filter -->
+      <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-card flex flex-col sm:flex-row gap-3">
+        <div class="relative flex-grow">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="searchInput" placeholder="Cari nama guru atau judul karya..."
+                 class="w-full text-sm pl-9 pr-3 py-2.5 border border-slate-200 rounded-lg focus-gold transition">
+        </div>
+        <div id="clusterFilters" class="flex flex-wrap gap-1.5 items-center"></div>
+      </div>
+
+      <!-- Live Cards Container -->
+      <div id="galleryContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div class="col-span-full py-16 text-center text-slate-400">
+          <i data-lucide="loader-circle" class="w-6 h-6 animate-spin mx-auto mb-2"></i>
+          <p class="text-xs">Memuat galeri karya...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-[11px] text-slate-400 py-6 px-4">
+    Tim PkM Diseminasi &middot; Prodi Pendidikan Bahasa Inggris, FKIP Universitas Tadulako &middot; Tahun Anggaran 2026
+  </footer>
+
+  <!-- Interactive Live Preview Modal -->
+  <div id="previewModal" class="fixed inset-0 bg-navy-950/80 backdrop-blur-sm hidden z-50 items-center justify-center p-2 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div id="modalPanel" class="bg-white w-full max-w-4xl h-[85vh] rounded-2xl overflow-hidden flex flex-col shadow-2xl transition-all duration-200">
+      <div class="bg-slate-50 px-5 md:px-6 py-3.5 border-b border-slate-200 flex justify-between items-center gap-3">
+        <div class="min-w-0">
+          <h3 id="modalTitle" class="font-bold text-slate-900 text-sm md:text-base truncate">Pratinjau Buku Digital</h3>
+          <p id="modalAuthor" class="text-xs text-slate-500 truncate"></p>
+        </div>
+        <div class="flex items-center gap-1 shrink-0">
+          <a id="modalOpenLink" href="#" target="_blank" rel="noopener noreferrer"
+             class="p-2.5 text-slate-500 hover:text-navy-900 hover:bg-slate-200/60 rounded-lg transition" title="Buka tautan langsung" aria-label="Buka tautan langsung di tab baru">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+          </a>
+          <button id="modalFullscreenBtn" type="button" class="p-2.5 text-slate-500 hover:text-navy-900 hover:bg-slate-200/60 rounded-lg transition" title="Layar penuh" aria-label="Tampilan layar penuh">
+            <i data-lucide="maximize-2" class="w-4 h-4"></i>
+          </button>
+          <button id="modalCloseBtn" type="button" class="p-2.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition" aria-label="Tutup pratinjau">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+      <p class="text-[11px] text-slate-400 px-5 md:px-6 py-1.5 bg-slate-50 border-b border-slate-200 flex items-center gap-1">
+        <i data-lucide="info" class="w-3 h-3 shrink-0"></i>
+        Jika pratinjau tampak kosong, situs sumber mungkin memblokir tampilan sematan — gunakan ikon buka-tautan di atas.
+      </p>
+      <div class="flex-grow bg-slate-900 relative">
+        <div id="modalLoading" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 gap-2 z-0">
+          <i data-lucide="loader-circle" class="w-6 h-6 animate-spin"></i>
+          <p class="text-xs">Memuat pratinjau...</p>
+        </div>
+        <div id="modalFallback" class="absolute inset-0 hidden flex-col items-center justify-center text-center text-slate-300 gap-3 px-6 z-10">
+          <i data-lucide="alert-triangle" class="w-8 h-8 text-gold-400"></i>
+          <p class="text-sm max-w-xs">Pratinjau tidak kunjung termuat. Tautan mungkin tidak valid, atau server sumber tidak merespons.</p>
+          <a id="modalFallbackLink" href="#" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold bg-gold-500 hover:bg-gold-600 text-navy-950 px-4 py-2 rounded-lg transition">
+            Buka Tautan Langsung
+          </a>
+        </div>
+        <iframe id="modalIframe" src="" class="w-full h-full border-0 relative z-[1]" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Your Exact Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyB6Qy4r_FZEoAmSRkIs7Fa5RpRUA0QrpZo",
+      authDomain: "pkm-smpn21-palu.firebaseapp.com",
+      projectId: "pkm-smpn21-palu",
+      storageBucket: "pkm-smpn21-palu.firebasestorage.app",
+      messagingSenderId: "441095770466",
+      appId: "1:441095770466:web:21027fdb415a46c993dc3b",
+      measurementId: "G-9GP72Z6NBJ"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const worksCollection = collection(db, "works");
+
+    // ---------- Helpers: escaping & URL safety (prevents stored XSS from public submissions) ----------
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function sanitizeUrl(url) {
+      try {
+        const parsed = new URL(String(url));
+        if (parsed.protocol === 'https:' || parsed.protocol === 'http:') return parsed.href;
+      } catch (e) { /* invalid URL falls through */ }
+      return '';
+    }
+
+    // ---------- Toast notifications (replaces alert()) ----------
+    function showToast(type, message) {
+      const root = document.getElementById('toastRoot');
+      const toast = document.createElement('div');
+      const isError = type === 'error';
+      toast.className = `toast flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border text-sm font-medium max-w-xs ${
+        isError ? 'bg-red-50 border-red-200 text-red-700' : 'bg-emerald-50 border-emerald-200 text-emerald-700'
+      }`;
+      toast.innerHTML = `
+        <i data-lucide="${isError ? 'alert-circle' : 'check-circle-2'}" class="w-4 h-4 shrink-0"></i>
+        <span>${escapeHtml(message)}</span>
+      `;
+      root.appendChild(toast);
+      lucide.createIcons();
+      setTimeout(() => {
+        toast.style.transition = 'all 0.25s ease-in';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(12px)';
+        setTimeout(() => toast.remove(), 260);
+      }, 3800);
+    }
+
+    // ---------- Form validation ----------
+    const REQUIRED_FIELDS = ['teacherName', 'subjectCluster', 'workTitle', 'hotsDescription', 'canvaUrl', 'flipbookUrl'];
+
+    function setFieldError(id, message) {
+      const field = document.getElementById(id);
+      const errorEl = field.closest('div').querySelector('.field-error');
+      field.classList.add('field-invalid');
+      field.classList.remove('field-valid');
+      if (errorEl) { errorEl.textContent = message; errorEl.classList.remove('hidden'); }
+    }
+
+    function clearFieldError(id) {
+      const field = document.getElementById(id);
+      const errorEl = field.closest('div').querySelector('.field-error');
+      field.classList.remove('field-invalid');
+      field.classList.add('field-valid');
+      if (errorEl) { errorEl.classList.add('hidden'); }
+    }
+
+    function validateForm() {
+      let isValid = true;
+      let firstInvalid = null;
+
+      REQUIRED_FIELDS.forEach((id) => {
+        const field = document.getElementById(id);
+        const value = field.value.trim();
+
+        if (!value) {
+          setFieldError(id, 'Kolom ini wajib diisi.');
+          isValid = false;
+          if (!firstInvalid) firstInvalid = field;
+          return;
+        }
+
+        if ((id === 'canvaUrl' || id === 'flipbookUrl') && !sanitizeUrl(value)) {
+          setFieldError(id, 'Masukkan tautan yang valid (diawali https://).');
+          isValid = false;
+          if (!firstInvalid) firstInvalid = field;
+          return;
+        }
+
+        clearFieldError(id);
+      });
+
+      if (firstInvalid) firstInvalid.focus();
+      return isValid;
+    }
+
+    REQUIRED_FIELDS.forEach((id) => {
+      document.getElementById(id).addEventListener('input', () => {
+        const field = document.getElementById(id);
+        if (field.value.trim()) clearFieldError(id);
+      });
+    });
+
+    // ---------- Form Submission Handler ----------
+    const form = document.getElementById("submissionForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const submitBtnIcon = document.getElementById("submitBtnIcon");
+    const submitBtnText = document.getElementById("submitBtnText");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if (!validateForm()) {
+        showToast('error', 'Periksa kembali kolom yang ditandai merah.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtnIcon.innerHTML = '<i data-lucide="loader-circle" class="w-4 h-4 animate-spin"></i>';
+      submitBtnText.textContent = 'Mengunggah...';
+      lucide.createIcons();
+
+      try {
+        await addDoc(worksCollection, {
+          teacherName: document.getElementById("teacherName").value.trim(),
+          subjectCluster: document.getElementById("subjectCluster").value,
+          workTitle: document.getElementById("workTitle").value.trim(),
+          hotsDescription: document.getElementById("hotsDescription").value.trim(),
+          canvaUrl: document.getElementById("canvaUrl").value.trim(),
+          flipbookUrl: document.getElementById("flipbookUrl").value.trim(),
+          createdAt: serverTimestamp()
+        });
+
+        form.reset();
+        REQUIRED_FIELDS.forEach(clearFieldError);
+        showToast('success', 'Karya berhasil diunggah ke galeri!');
+      } catch (err) {
+        console.error("Error adding document: ", err);
+        showToast('error', 'Gagal mengunggah karya. Periksa koneksi internet Anda.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtnIcon.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i>';
+        submitBtnText.textContent = 'Unggah Karya ke Galeri';
+        lucide.createIcons();
+      }
+    });
+
+    // ---------- Gallery: state, filtering, rendering ----------
+    const CLUSTERS = ['Semua', 'Bahasa', 'MIPA', 'IPS & PKn', 'Lainnya'];
+    let allWorks = [];
+    let activeCluster = 'Semua';
+    let searchTerm = '';
+
+    function clusterBadgeClasses(cluster) {
+      switch (cluster) {
+        case 'Bahasa': return 'bg-indigo-50 text-indigo-700 border-indigo-200';
+        case 'MIPA': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+        case 'IPS & PKn': return 'bg-amber-50 text-amber-700 border-amber-200';
+        default: return 'bg-slate-100 text-slate-600 border-slate-200';
+      }
+    }
+
+    function renderClusterFilters() {
+      const wrap = document.getElementById('clusterFilters');
+      wrap.innerHTML = CLUSTERS.map((c) => `
+        <button type="button" data-cluster="${escapeHtml(c)}"
+          class="filter-pill text-[11px] font-semibold px-3 py-1.5 rounded-full border transition ${
+            c === activeCluster
+              ? 'bg-navy-900 text-white border-navy-900'
+              : 'bg-white text-slate-600 border-slate-200 hover:border-navy-300'
+          }">${escapeHtml(c)}</button>
+      `).join('');
+
+      wrap.querySelectorAll('.filter-pill').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeCluster = btn.dataset.cluster;
+          renderClusterFilters();
+          applyFiltersAndRender();
+        });
+      });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      searchTerm = e.target.value;
+      applyFiltersAndRender();
+    });
+
+    function applyFiltersAndRender() {
+      const filtered = allWorks.filter((item) => {
+        const matchesCluster = activeCluster === 'Semua' || item.subjectCluster === activeCluster;
+        const haystack = `${item.teacherName || ''} ${item.workTitle || ''}`.toLowerCase();
+        const matchesSearch = !searchTerm || haystack.includes(searchTerm.toLowerCase());
+        return matchesCluster && matchesSearch;
+      });
+      renderGallery(filtered);
+    }
+
+    function buildCard(item) {
+      const card = document.createElement('div');
+      card.className = "card-enter bg-white rounded-2xl border border-slate-200 shadow-card hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200 flex flex-col overflow-hidden";
+
+      const safeCanva = sanitizeUrl(item.canvaUrl);
+      const safeFlipbook = sanitizeUrl(item.flipbookUrl);
+      const badgeClasses = clusterBadgeClasses(item.subjectCluster);
+
+      card.innerHTML = `
+        <div class="p-5 flex-grow flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <span class="inline-flex px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide rounded-md border ${badgeClasses}">${escapeHtml(item.subjectCluster || 'Umum')}</span>
+          </div>
+          <h3 class="font-bold text-slate-900 text-[15px] leading-snug mb-1">${escapeHtml(item.workTitle)}</h3>
+          <p class="text-xs text-slate-500 mb-3 font-medium">Oleh: ${escapeHtml(item.teacherName)}</p>
+          <blockquote class="text-xs text-slate-600 line-clamp-3 bg-slate-50 border-l-2 border-gold-500 pl-3 py-2 rounded-r-lg italic leading-relaxed">
+            "${escapeHtml(item.hotsDescription)}"
+          </blockquote>
+        </div>
+        <div class="flex gap-2 px-5 pb-5 pt-1 text-xs">
+          <button type="button" class="preview-trigger flex-1 bg-navy-900 hover:bg-navy-800 text-white py-2 rounded-lg transition font-semibold text-center inline-flex items-center justify-center gap-1.5">
+            <i data-lucide="eye" class="w-3.5 h-3.5"></i> Pratinjau
+          </button>
+          <a href="${escapeHtml(safeCanva)}" target="_blank" rel="noopener noreferrer" class="px-3 py-2 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition flex items-center gap-1.5 font-medium">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Canva
+          </a>
+        </div>
+      `;
+
+      card.querySelector('.preview-trigger').addEventListener('click', () => {
+        openPreviewModal(safeFlipbook, item.workTitle, item.teacherName);
+      });
+
+      return card;
+    }
+
+    function renderGallery(list) {
+      const container = document.getElementById('galleryContainer');
+      container.innerHTML = '';
+
+      if (allWorks.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">
+            <i data-lucide="inbox" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
+            <p class="text-sm">Belum ada karya yang diunggah.</p>
+          </div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">
+            <i data-lucide="search-x" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
+            <p class="text-sm">Tidak ada karya yang cocok dengan pencarian/filter Anda.</p>
+          </div>`;
+        lucide.createIcons();
+        return;
+      }
+
+      list.forEach((item) => container.appendChild(buildCard(item)));
+      lucide.createIcons();
+    }
+
+    // ---------- Real-Time Gallery Listener ----------
+    const q = query(worksCollection, orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      allWorks = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+      document.getElementById('cardCount').innerHTML =
+        `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> ${allWorks.length} Karya Terbit`;
+      document.getElementById('heroWorkCount').textContent = allWorks.length;
+
+      applyFiltersAndRender();
+    }, (error) => {
+      console.error("Gallery listener error:", error);
+      showToast('error', 'Gagal memuat galeri. Periksa koneksi internet Anda.');
+    });
+
+    // ---------- Preview Modal ----------
+    const modal = document.getElementById('previewModal');
+    const modalPanel = document.getElementById('modalPanel');
+    const modalIframe = document.getElementById('modalIframe');
+    const modalLoading = document.getElementById('modalLoading');
+    const modalFallback = document.getElementById('modalFallback');
+    const modalOpenLink = document.getElementById('modalOpenLink');
+    const modalFallbackLink = document.getElementById('modalFallbackLink');
+    const modalFullscreenBtn = document.getElementById('modalFullscreenBtn');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+    let modalLoadTimer = null;
+    let lastFocusedElement = null;
+
+    window.openPreviewModal = (url, title, author) => {
+      lastFocusedElement = document.activeElement;
+
+      document.getElementById("modalTitle").innerText = title || 'Pratinjau Buku Digital';
+      document.getElementById("modalAuthor").innerText = author ? `Oleh: ${author}` : '';
+      modalOpenLink.href = url || '#';
+      modalFallbackLink.href = url || '#';
+
+      modalLoading.classList.remove('hidden');
+      modalLoading.classList.add('flex');
+      modalFallback.classList.add('hidden');
+      modalFallback.classList.remove('flex');
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      modalCloseBtn.focus();
+
+      if (!url) {
+        modalLoading.classList.add('hidden');
+        modalFallback.classList.remove('hidden');
+        modalFallback.classList.add('flex');
+        return;
+      }
+
+      modalIframe.src = url;
+
+      clearTimeout(modalLoadTimer);
+      modalLoadTimer = setTimeout(() => {
+        if (!modalLoading.classList.contains('hidden')) {
+          modalLoading.classList.add('hidden');
+          modalFallback.classList.remove('hidden');
+          modalFallback.classList.add('flex');
+        }
+      }, 8000);
+    };
+
+    modalIframe.addEventListener('load', () => {
+      clearTimeout(modalLoadTimer);
+      modalLoading.classList.add('hidden');
+    });
+
+    window.closePreviewModal = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      modalIframe.src = '';
+      document.body.style.overflow = '';
+      clearTimeout(modalLoadTimer);
+      exitModalFullscreen();
+      if (lastFocusedElement) lastFocusedElement.focus();
+    };
+
+    modalCloseBtn.addEventListener('click', () => window.closePreviewModal());
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) window.closePreviewModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        window.closePreviewModal();
+      }
+    });
+
+    function exitModalFullscreen() {
+      modalPanel.classList.remove('modal-fullscreen');
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    modalFullscreenBtn.addEventListener('click', () => {
+      if (modalPanel.requestFullscreen) {
+        if (!document.fullscreenElement) {
+          modalPanel.requestFullscreen().catch(() => {
+            modalPanel.classList.toggle('modal-fullscreen');
+          });
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      } else {
+        modalPanel.classList.toggle('modal-fullscreen');
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      const icon = modalFullscreenBtn.querySelector('i');
+      icon.setAttribute('data-lucide', document.fullscreenElement ? 'minimize-2' : 'maximize-2');
+      lucide.createIcons();
+    });
+
+    // ---------- Init ----------
+    renderClusterFilters();
+    lucide.createIcons();
+  </script>
+</body>
+</html>
