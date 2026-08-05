@@ -39,7 +39,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
 
-    /* Hero background: faint technical grid + one restrained gold glow */
     .hero-pattern {
       background-image:
         radial-gradient(circle at 15% 20%, rgba(212, 175, 106, 0.18), transparent 45%),
@@ -90,14 +89,6 @@
     ::-webkit-scrollbar-track { background: #F1F5F9; }
     ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
     ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
-      }
-    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
@@ -198,24 +189,42 @@
         </div>
 
         <div>
-          <label for="canvaUrl" class="block text-xs font-semibold text-slate-700 mb-1">
-            Tautan Desain Canva <span class="text-red-500">*</span>
-          </label>
-          <input type="url" id="canvaUrl" name="canvaUrl" required
-                 placeholder="https://www.canva.com/design/..."
-                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
-          <p class="text-[11px] text-slate-400 mt-1">Klik <span class="font-medium text-slate-500">Share &rarr; Anyone with the link</span> di Canva, lalu tempel tautannya di sini.</p>
-          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
-        </div>
-
-        <div>
           <label for="flipbookUrl" class="block text-xs font-semibold text-slate-700 mb-1">
-            Tautan Digital Flipbook <span class="text-red-500">*</span>
+            Tautan Digital Flipbook (Heyzine / FlipHTML5) <span class="text-red-500">*</span>
           </label>
           <input type="url" id="flipbookUrl" name="flipbookUrl" required
                  placeholder="https://heyzine.com/flip-book/..."
                  class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
-          <p class="text-[11px] text-slate-400 mt-1">Ekspor dari <span class="font-medium text-slate-500">Heyzine</span> atau <span class="font-medium text-slate-500">FlipHTML5</span>, lalu salin tautan publiknya.</p>
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <div>
+          <label for="handoutUrl" class="block text-xs font-semibold text-slate-700 mb-1">
+            Tautan Handout / Modul Ajar (PDF / Drive) <span class="text-slate-400 font-normal">(Opsional)</span>
+          </label>
+          <input type="url" id="handoutUrl" name="handoutUrl"
+                 placeholder="https://drive.google.com/file/d/..."
+                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <div>
+          <label for="videoUrl" class="block text-xs font-semibold text-slate-700 mb-1">
+            Tautan Video Pembelajaran (YouTube / Drive) <span class="text-slate-400 font-normal">(Opsional)</span>
+          </label>
+          <input type="url" id="videoUrl" name="videoUrl"
+                 placeholder="https://youtube.com/watch?v=..."
+                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <div>
+          <label for="canvaUrl" class="block text-xs font-semibold text-slate-700 mb-1">
+            Tautan Desain Canva <span class="text-slate-400 font-normal">(Opsional)</span>
+          </label>
+          <input type="url" id="canvaUrl" name="canvaUrl"
+                 placeholder="https://www.canva.com/design/..."
+                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
           <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
         </div>
 
@@ -253,7 +262,7 @@
       </div>
 
       <!-- Live Cards Container -->
-      <div id="galleryContainer" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div id="galleryContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="col-span-full py-16 text-center text-slate-400">
           <i data-lucide="loader-circle" class="w-6 h-6 animate-spin mx-auto mb-2"></i>
           <p class="text-xs">Memuat galeri karya...</p>
@@ -314,7 +323,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Your Exact Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyB6Qy4r_FZEoAmSRkIs7Fa5RpRUA0QrpZo",
       authDomain: "pkm-smpn21-palu.firebaseapp.com",
@@ -325,12 +333,10 @@
       measurementId: "G-9GP72Z6NBJ"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const worksCollection = collection(db, "works");
 
-    // ---------- Helpers: escaping & URL safety (prevents stored XSS from public submissions) ----------
     function escapeHtml(str) {
       if (str === null || str === undefined) return '';
       return String(str)
@@ -342,14 +348,14 @@
     }
 
     function sanitizeUrl(url) {
+      if (!url) return '';
       try {
         const parsed = new URL(String(url));
         if (parsed.protocol === 'https:' || parsed.protocol === 'http:') return parsed.href;
-      } catch (e) { /* invalid URL falls through */ }
+      } catch (e) {}
       return '';
     }
 
-    // ---------- Toast notifications (replaces alert()) ----------
     function showToast(type, message) {
       const root = document.getElementById('toastRoot');
       const toast = document.createElement('div');
@@ -371,8 +377,7 @@
       }, 3800);
     }
 
-    // ---------- Form validation ----------
-    const REQUIRED_FIELDS = ['teacherName', 'subjectCluster', 'workTitle', 'hotsDescription', 'canvaUrl', 'flipbookUrl'];
+    const REQUIRED_FIELDS = ['teacherName', 'subjectCluster', 'workTitle', 'hotsDescription', 'flipbookUrl'];
 
     function setFieldError(id, message) {
       const field = document.getElementById(id);
@@ -405,7 +410,7 @@
           return;
         }
 
-        if ((id === 'canvaUrl' || id === 'flipbookUrl') && !sanitizeUrl(value)) {
+        if (id === 'flipbookUrl' && !sanitizeUrl(value)) {
           setFieldError(id, 'Masukkan tautan yang valid (diawali https://).');
           isValid = false;
           if (!firstInvalid) firstInvalid = field;
@@ -415,18 +420,9 @@
         clearFieldError(id);
       });
 
-      if (firstInvalid) firstInvalid.focus();
       return isValid;
     }
 
-    REQUIRED_FIELDS.forEach((id) => {
-      document.getElementById(id).addEventListener('input', () => {
-        const field = document.getElementById(id);
-        if (field.value.trim()) clearFieldError(id);
-      });
-    });
-
-    // ---------- Form Submission Handler ----------
     const form = document.getElementById("submissionForm");
     const submitBtn = document.getElementById("submitBtn");
     const submitBtnIcon = document.getElementById("submitBtnIcon");
@@ -451,8 +447,10 @@
           subjectCluster: document.getElementById("subjectCluster").value,
           workTitle: document.getElementById("workTitle").value.trim(),
           hotsDescription: document.getElementById("hotsDescription").value.trim(),
-          canvaUrl: document.getElementById("canvaUrl").value.trim(),
           flipbookUrl: document.getElementById("flipbookUrl").value.trim(),
+          handoutUrl: document.getElementById("handoutUrl").value.trim(),
+          videoUrl: document.getElementById("videoUrl").value.trim(),
+          canvaUrl: document.getElementById("canvaUrl").value.trim(),
           createdAt: serverTimestamp()
         });
 
@@ -470,7 +468,6 @@
       }
     });
 
-    // ---------- Gallery: state, filtering, rendering ----------
     const CLUSTERS = ['Semua', 'Bahasa', 'MIPA', 'IPS & PKn', 'Lainnya'];
     let allWorks = [];
     let activeCluster = 'Semua';
@@ -524,8 +521,10 @@
       const card = document.createElement('div');
       card.className = "card-enter bg-white rounded-2xl border border-slate-200 shadow-card hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200 flex flex-col overflow-hidden";
 
-      const safeCanva = sanitizeUrl(item.canvaUrl);
       const safeFlipbook = sanitizeUrl(item.flipbookUrl);
+      const safeHandout = sanitizeUrl(item.handoutUrl);
+      const safeVideo = sanitizeUrl(item.videoUrl);
+      const safeCanva = sanitizeUrl(item.canvaUrl);
       const badgeClasses = clusterBadgeClasses(item.subjectCluster);
 
       card.innerHTML = `
@@ -535,17 +534,49 @@
           </div>
           <h3 class="font-bold text-slate-900 text-[15px] leading-snug mb-1">${escapeHtml(item.workTitle)}</h3>
           <p class="text-xs text-slate-500 mb-3 font-medium">Oleh: ${escapeHtml(item.teacherName)}</p>
-          <blockquote class="text-xs text-slate-600 line-clamp-3 bg-slate-50 border-l-2 border-gold-500 pl-3 py-2 rounded-r-lg italic leading-relaxed">
+          <blockquote class="text-xs text-slate-600 line-clamp-3 bg-slate-50 border-l-2 border-gold-500 pl-3 py-2 rounded-r-lg italic leading-relaxed mb-4">
             "${escapeHtml(item.hotsDescription)}"
           </blockquote>
         </div>
-        <div class="flex gap-2 px-5 pb-5 pt-1 text-xs">
-          <button type="button" class="preview-trigger flex-1 bg-navy-900 hover:bg-navy-800 text-white py-2 rounded-lg transition font-semibold text-center inline-flex items-center justify-center gap-1.5">
-            <i data-lucide="eye" class="w-3.5 h-3.5"></i> Pratinjau
+
+        <div class="px-5 pb-5 pt-1 space-y-2 text-xs">
+          <!-- Primary Action: Flipbook Modal Preview -->
+          <button type="button" class="preview-trigger w-full bg-navy-900 hover:bg-navy-800 text-white py-2 rounded-lg transition font-semibold text-center inline-flex items-center justify-center gap-1.5">
+            <i data-lucide="book-open" class="w-3.5 h-3.5 text-gold-400"></i> Baca Buku Digital (Flipbook)
           </button>
-          <a href="${escapeHtml(safeCanva)}" target="_blank" rel="noopener noreferrer" class="px-3 py-2 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition flex items-center gap-1.5 font-medium">
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Canva
-          </a>
+
+          <!-- Secondary Actions Grid -->
+          <div class="grid grid-cols-3 gap-1.5">
+            ${safeHandout ? `
+              <a href="${escapeHtml(safeHandout)}" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition flex items-center justify-center gap-1 font-medium text-[11px]" title="Unduh / Lihat Handout">
+                <i data-lucide="file-text" class="w-3 h-3 text-indigo-600"></i> Handout
+              </a>
+            ` : `
+              <button disabled class="px-2 py-1.5 border border-slate-100 text-slate-300 rounded-lg cursor-not-allowed flex items-center justify-center gap-1 text-[11px]">
+                <i data-lucide="file-text" class="w-3 h-3"></i> Handout
+              </button>
+            `}
+
+            ${safeVideo ? `
+              <a href="${escapeHtml(safeVideo)}" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition flex items-center justify-center gap-1 font-medium text-[11px]" title="Tonton Video Pembelajaran">
+                <i data-lucide="video" class="w-3 h-3 text-red-600"></i> Video
+              </a>
+            ` : `
+              <button disabled class="px-2 py-1.5 border border-slate-100 text-slate-300 rounded-lg cursor-not-allowed flex items-center justify-center gap-1 text-[11px]">
+                <i data-lucide="video" class="w-3 h-3"></i> Video
+              </button>
+            `}
+
+            ${safeCanva ? `
+              <a href="${escapeHtml(safeCanva)}" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition flex items-center justify-center gap-1 font-medium text-[11px]" title="Buka Desain Canva">
+                <i data-lucide="external-link" class="w-3 h-3 text-cyan-600"></i> Canva
+              </a>
+            ` : `
+              <button disabled class="px-2 py-1.5 border border-slate-100 text-slate-300 rounded-lg cursor-not-allowed flex items-center justify-center gap-1 text-[11px]">
+                <i data-lucide="external-link" class="w-3 h-3"></i> Canva
+              </button>
+            `}
+          </div>
         </div>
       `;
 
@@ -584,7 +615,6 @@
       lucide.createIcons();
     }
 
-    // ---------- Real-Time Gallery Listener ----------
     const q = query(worksCollection, orderBy("createdAt", "desc"));
     onSnapshot(q, (snapshot) => {
       allWorks = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -599,7 +629,6 @@
       showToast('error', 'Gagal memuat galeri. Periksa koneksi internet Anda.');
     });
 
-    // ---------- Preview Modal ----------
     const modal = document.getElementById('previewModal');
     const modalPanel = document.getElementById('modalPanel');
     const modalIframe = document.getElementById('modalIframe');
@@ -704,7 +733,6 @@
       lucide.createIcons();
     });
 
-    // ---------- Init ----------
     renderClusterFilters();
     lucide.createIcons();
   </script>
