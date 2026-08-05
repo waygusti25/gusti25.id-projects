@@ -35,10 +35,12 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Custom Styles (Terkonsolidasi agar siap pakai di GitHub Pages) -->
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
 
+    /* Pola Latar Belakang Hero Akademik */
     .hero-pattern {
       background-image:
         radial-gradient(circle at 15% 20%, rgba(212, 175, 106, 0.18), transparent 45%),
@@ -47,6 +49,7 @@
       background-size: auto, 34px 34px, 34px 34px;
     }
 
+    /* Animasi Mikro */
     @keyframes cardIn {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -59,14 +62,17 @@
     }
     .toast { animation: toastIn 0.25s ease-out both; }
 
+    /* Fokus Interaksi Emas */
     .focus-gold:focus {
       outline: none;
       box-shadow: 0 0 0 3px rgba(212, 175, 106, 0.35), 0 0 0 1px #B4924F;
     }
 
+    /* Status Validasi Formulir */
     .field-invalid { border-color: #DC2626 !important; }
     .field-valid   { border-color: #16A34A !important; }
 
+    /* Penampung Notifikasi Toast */
     #toastRoot {
       position: fixed;
       top: 1rem;
@@ -78,6 +84,7 @@
       max-width: calc(100vw - 2rem);
     }
 
+    /* Layar Penuh Modal */
     .modal-fullscreen {
       max-width: 100vw !important;
       width: 100vw !important;
@@ -85,22 +92,24 @@
       border-radius: 0 !important;
     }
 
-    ::-webkit-scrollbar { width: 10px; height: 10px; }
-    ::-webkit-scrollbar-track { background: #F1F5F9; }
-    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 6px; }
+    /* Kustomisasi Scrollbar (Berestetika Mac/Modern) */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #F8FAFC; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
+  <!-- Sistem Notifikasi Toast -->
   <div id="toastRoot"></div>
 
-  <!-- Hero Header -->
+  <!-- Hero Header Panel -->
   <header class="relative bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 text-white overflow-hidden hero-pattern">
     <div class="max-w-6xl mx-auto px-4 md:px-6 pt-10 pb-8 md:pt-14 md:pb-12 relative z-10">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
-          <div class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-wider uppercase text-gold-400 bg-white/5 border border-gold-500/25 rounded-full px-3 py-1 mb-4">
+          <div class="inline-flex items-center gap-2 text-[11px] font-semibold tracking-wider uppercase text-gold-400 bg-white/5 border border-gold-500/25 rounded-full px-3 py-1 mb-4 shadow-sm">
             <span class="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse"></span>
             Program Pengabdian kepada Masyarakat &middot; 2026
           </div>
@@ -109,16 +118,17 @@
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">Universitas Tadulako</span> &times; SMPN 21 Palu
           </h1>
           <p class="mt-3 text-sm md:text-[15px] text-slate-300 max-w-xl leading-relaxed">
-            Galeri karya bahan ajar digital berbasis <span class="text-slate-100 font-medium">Deep Learning &amp; AI</span> — hasil pendampingan guru Prodi Pendidikan Bahasa Inggris FKIP Untad.
+            Galeri karya bahan ajar digital berbasis <span class="text-slate-100 font-medium">Deep Learning &amp; AI</span> — hasil karya inovatif guru tersertifikasi.
           </p>
         </div>
 
-        <div class="flex items-center gap-3 shrink-0 flex-wrap justify-start md:justify-end">
+        <!-- Panel Info Singkat Kanan -->
+        <div class="flex items-center gap-4 shrink-0 flex-wrap justify-start md:justify-end bg-white/5 p-3 rounded-xl border border-white/10 backdrop-blur-sm">
           <div class="text-right">
             <p id="heroWorkCount" class="text-2xl font-extrabold text-gold-400">0</p>
-            <p class="text-[11px] uppercase tracking-wide text-slate-400">Karya Terbit</p>
+            <p class="text-[10px] uppercase tracking-wide text-slate-400 font-semibold">Karya Terbit</p>
           </div>
-          <div class="h-9 w-px bg-white/10"></div>
+          <div class="h-10 w-px bg-white/20"></div>
           <div class="text-[11px] text-slate-400 leading-relaxed text-right">
             <p class="text-slate-200 font-medium">projects.gusti25.id</p>
             <p>/pkm-smp21-palu</p>
@@ -126,191 +136,168 @@
         </div>
       </div>
     </div>
-    <div class="h-[3px] bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+    <div class="h-[3px] bg-gradient-to-r from-transparent via-gold-500 to-transparent opacity-80"></div>
   </header>
 
-  <!-- Main Content -->
-  <main class="flex-grow max-w-6xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <!-- Konten Utama (Grid Layout 1:2) -->
+  <main class="flex-grow max-w-6xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-    <!-- Submission Form Section -->
-    <section class="lg:col-span-1 bg-white p-6 md:p-7 rounded-2xl shadow-card border border-slate-200 h-fit lg:sticky lg:top-6">
+    <!-- BAGIAN KIRI: Formulir Unggah Karya (Kolom 4/12) -->
+    <section class="lg:col-span-4 bg-white p-6 md:p-7 rounded-2xl shadow-card border border-slate-200 h-fit lg:sticky lg:top-6">
       <div class="flex items-center gap-2 mb-1">
-        <span class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0">
+        <span class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 shadow-inner">
           <i data-lucide="upload-cloud" class="w-4 h-4"></i>
         </span>
         <h2 class="text-base font-bold text-slate-900">Unggah Karya Guru</h2>
       </div>
-      <p class="text-xs text-slate-500 mb-5">Isi formulir di bawah ini untuk menerbitkan karya Anda ke galeri.</p>
+      <p class="text-[11px] text-slate-500 mb-6 border-b pb-4">Lengkapi formulir di bawah ini untuk mengarsipkan karya inovasi Anda.</p>
 
       <form id="submissionForm" class="space-y-4" novalidate>
+        <!-- Field Wajib -->
         <div>
-          <label for="teacherName" class="block text-xs font-semibold text-slate-700 mb-1">
-            Nama Lengkap &amp; Gelar <span class="text-red-500">*</span>
-          </label>
-          <input type="text" id="teacherName" name="teacherName" required
-                 placeholder="Contoh: Nadrun, S.Pd., M.Pd."
-                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <label for="teacherName" class="block text-xs font-semibold text-slate-700 mb-1">Nama Lengkap &amp; Gelar <span class="text-red-500">*</span></label>
+          <input type="text" id="teacherName" required placeholder="Contoh: Nadrun, S.Pd., M.Pd." class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
           <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
         </div>
 
         <div>
-          <label for="subjectCluster" class="block text-xs font-semibold text-slate-700 mb-1">
-            Rumpun Mata Pelajaran <span class="text-red-500">*</span>
-          </label>
-          <select id="subjectCluster" name="subjectCluster" required
-                  class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold bg-white">
+          <label for="subjectCluster" class="block text-xs font-semibold text-slate-700 mb-1">Rumpun Mata Pelajaran <span class="text-red-500">*</span></label>
+          <select id="subjectCluster" required class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold bg-white">
             <option value="">-- Pilih Rumpun --</option>
             <option value="Bahasa">Rumpun Bahasa (Indonesia / Inggris)</option>
             <option value="MIPA">Rumpun MIPA (IPA / Matematika)</option>
-            <option value="IPS &amp; PKn">Rumpun IPS &amp; PKn</option>
+            <option value="IPS & PKn">Rumpun IPS & PKn</option>
             <option value="Lainnya">Mata Pelajaran Lainnya</option>
           </select>
           <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
         </div>
 
         <div>
-          <label for="workTitle" class="block text-xs font-semibold text-slate-700 mb-1">
-            Judul Bahan Ajar Digital <span class="text-red-500">*</span>
-          </label>
-          <input type="text" id="workTitle" name="workTitle" required maxlength="150"
-                 placeholder="Contoh: Modul Interaktif Ekosistem Teluk Palu"
-                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <label for="workTitle" class="block text-xs font-semibold text-slate-700 mb-1">Judul Bahan Ajar Digital <span class="text-red-500">*</span></label>
+          <input type="text" id="workTitle" required maxlength="150" placeholder="Contoh: Modul Interaktif Ekosistem Teluk Palu" class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
           <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
         </div>
 
         <div>
-          <label for="hotsDescription" class="block text-xs font-semibold text-slate-700 mb-1">
-            Deskripsi Pendekatan Deep Learning / HOTS <span class="text-red-500">*</span>
-          </label>
-          <textarea id="hotsDescription" name="hotsDescription" rows="3" required maxlength="500"
-                    placeholder="Jelaskan secara singkat studi kasus lokal Palu & pertanyaan HOTS yang diangkat..."
-                    class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400 resize-none"></textarea>
+          <label for="hotsDescription" class="block text-xs font-semibold text-slate-700 mb-1">Deskripsi Konteks HOTS <span class="text-red-500">*</span></label>
+          <textarea id="hotsDescription" rows="3" required maxlength="500" placeholder="Jelaskan studi kasus lokal & pendekatan kritis yang diangkat..." class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400 resize-none"></textarea>
           <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
         </div>
 
         <div>
-          <label for="flipbookUrl" class="block text-xs font-semibold text-slate-700 mb-1">
-            Tautan Digital Flipbook (Heyzine / FlipHTML5) <span class="text-red-500">*</span>
+          <label for="flipbookUrl" class="block text-xs font-semibold text-slate-700 mb-1">Tautan Flipbook (Heyzine) <span class="text-red-500">*</span></label>
+          <input type="url" id="flipbookUrl" required placeholder="https://heyzine.com/flip-book/..." class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
+        </div>
+
+        <!-- Field Opsional -->
+        <div class="pt-2 mt-2 border-t border-slate-100">
+          <label for="handoutUrl" class="block text-xs font-semibold text-slate-700 mb-1 flex justify-between">
+            Tautan Modul (PDF/Drive) <span class="text-slate-400 font-normal">Opsional</span>
           </label>
-          <input type="url" id="flipbookUrl" name="flipbookUrl" required
-                 placeholder="https://heyzine.com/flip-book/..."
-                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <input type="url" id="handoutUrl" placeholder="https://drive.google.com/..." class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400 bg-slate-50 focus:bg-white">
           <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
         </div>
 
         <div>
-          <label for="handoutUrl" class="block text-xs font-semibold text-slate-700 mb-1">
-            Tautan Handout / Modul Ajar (PDF / Drive) <span class="text-slate-400 font-normal">(Opsional)</span>
+          <label for="videoUrl" class="block text-xs font-semibold text-slate-700 mb-1 flex justify-between">
+            Tautan Video (YouTube) <span class="text-slate-400 font-normal">Opsional</span>
           </label>
-          <input type="url" id="handoutUrl" name="handoutUrl"
-                 placeholder="https://drive.google.com/file/d/..."
-                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <input type="url" id="videoUrl" placeholder="https://youtube.com/..." class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400 bg-slate-50 focus:bg-white">
           <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
         </div>
 
         <div>
-          <label for="videoUrl" class="block text-xs font-semibold text-slate-700 mb-1">
-            Tautan Video Pembelajaran (YouTube / Drive) <span class="text-slate-400 font-normal">(Opsional)</span>
+          <label for="canvaUrl" class="block text-xs font-semibold text-slate-700 mb-1 flex justify-between">
+            Tautan Master Canva <span class="text-slate-400 font-normal">Opsional</span>
           </label>
-          <input type="url" id="videoUrl" name="videoUrl"
-                 placeholder="https://youtube.com/watch?v=..."
-                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
+          <input type="url" id="canvaUrl" placeholder="https://www.canva.com/..." class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400 bg-slate-50 focus:bg-white">
           <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
         </div>
 
-        <div>
-          <label for="canvaUrl" class="block text-xs font-semibold text-slate-700 mb-1">
-            Tautan Desain Canva <span class="text-slate-400 font-normal">(Opsional)</span>
-          </label>
-          <input type="url" id="canvaUrl" name="canvaUrl"
-                 placeholder="https://www.canva.com/design/..."
-                 class="w-full text-sm px-3.5 py-2.5 border border-slate-300 rounded-lg transition focus-gold placeholder:text-slate-400">
-          <p class="field-error hidden text-[11px] text-red-600 mt-1"></p>
-        </div>
-
-        <button type="submit" id="submitBtn"
-                class="w-full bg-navy-900 hover:bg-navy-800 text-white font-semibold py-3 rounded-lg text-sm transition flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+        <button type="submit" id="submitBtn" class="w-full mt-2 bg-navy-900 hover:bg-navy-800 text-gold-400 hover:text-gold-300 font-semibold py-3.5 rounded-lg text-sm transition flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed shadow-md">
           <span id="submitBtnIcon"><i data-lucide="send" class="w-4 h-4"></i></span>
           <span id="submitBtnText">Unggah Karya ke Galeri</span>
         </button>
       </form>
     </section>
 
-    <!-- Real-Time Gallery Section -->
-    <section class="lg:col-span-2 space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <!-- BAGIAN KANAN: Galeri Real-Time (Kolom 8/12) -->
+    <section class="lg:col-span-8 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
         <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
-          <span class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0">
+          <span class="w-8 h-8 rounded-lg bg-gold-100 text-gold-700 flex items-center justify-center shrink-0">
             <i data-lucide="layout-grid" class="w-4 h-4"></i>
           </span>
-          Galeri Diseminasi Real-Time
+          Etalase Karya Digital
         </h2>
-        <span id="cardCount" class="text-xs bg-navy-900/5 text-navy-900 px-3 py-1.5 rounded-full font-semibold border border-navy-900/10 inline-flex items-center gap-1.5 w-fit">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          0 Karya Terbit
-        </span>
-      </div>
-
-      <!-- Search & Filter -->
-      <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-card flex flex-col sm:flex-row gap-3">
-        <div class="relative flex-grow">
+        
+        <div class="relative w-full sm:w-64">
           <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input type="text" id="searchInput" placeholder="Cari nama guru atau judul karya..."
-                 class="w-full text-sm pl-9 pr-3 py-2.5 border border-slate-200 rounded-lg focus-gold transition">
+          <input type="text" id="searchInput" placeholder="Cari karya atau guru..." class="w-full text-sm pl-9 pr-3 py-2 border border-slate-200 rounded-lg focus-gold transition bg-slate-50">
         </div>
-        <div id="clusterFilters" class="flex flex-wrap gap-1.5 items-center"></div>
       </div>
 
-      <!-- Live Cards Container -->
-      <div id="galleryContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="col-span-full py-16 text-center text-slate-400">
-          <i data-lucide="loader-circle" class="w-6 h-6 animate-spin mx-auto mb-2"></i>
-          <p class="text-xs">Memuat galeri karya...</p>
+      <!-- Filter Kategori (Pill Buttons) -->
+      <div id="clusterFilters" class="flex flex-wrap gap-2 items-center px-1"></div>
+
+      <!-- Kontainer Grid Kartu -->
+      <div id="galleryContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
+        <div class="col-span-full py-20 text-center text-slate-400">
+          <i data-lucide="loader-circle" class="w-8 h-8 animate-spin mx-auto mb-3"></i>
+          <p class="text-sm">Menghubungkan ke pangkalan data keamanan...</p>
         </div>
       </div>
     </section>
 
   </main>
 
-  <footer class="text-center text-[11px] text-slate-400 py-6 px-4">
-    Tim PkM Diseminasi &middot; Prodi Pendidikan Bahasa Inggris, FKIP Universitas Tadulako &middot; Tahun Anggaran 2026
+  <!-- Footer -->
+  <footer class="text-center text-[11px] text-slate-500 font-medium py-8 px-4 bg-slate-100 border-t border-slate-200 mt-auto">
+    &copy; 2026 Tim Pengabdi Universitas Tadulako &middot; Platform Edukasi Terbuka
   </footer>
 
-  <!-- Interactive Live Preview Modal -->
-  <div id="previewModal" class="fixed inset-0 bg-navy-950/80 backdrop-blur-sm hidden z-50 items-center justify-center p-2 sm:p-4" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div id="modalPanel" class="bg-white w-full max-w-4xl h-[85vh] rounded-2xl overflow-hidden flex flex-col shadow-2xl transition-all duration-200">
+  <!-- Modal Pratinjau Interaktif -->
+  <div id="previewModal" class="fixed inset-0 bg-navy-950/85 backdrop-blur-sm hidden z-50 items-center justify-center p-2 sm:p-4" role="dialog" aria-modal="true">
+    <div id="modalPanel" class="bg-white w-full max-w-5xl h-[90vh] rounded-2xl overflow-hidden flex flex-col shadow-2xl transition-all duration-300">
+      
+      <!-- Modal Header -->
       <div class="bg-slate-50 px-5 md:px-6 py-3.5 border-b border-slate-200 flex justify-between items-center gap-3">
-        <div class="min-w-0">
+        <div class="min-w-0 flex-1">
           <h3 id="modalTitle" class="font-bold text-slate-900 text-sm md:text-base truncate">Pratinjau Buku Digital</h3>
-          <p id="modalAuthor" class="text-xs text-slate-500 truncate"></p>
+          <p id="modalAuthor" class="text-[11px] text-slate-500 truncate font-medium uppercase tracking-wide"></p>
         </div>
         <div class="flex items-center gap-1 shrink-0">
-          <a id="modalOpenLink" href="#" target="_blank" rel="noopener noreferrer"
-             class="p-2.5 text-slate-500 hover:text-navy-900 hover:bg-slate-200/60 rounded-lg transition" title="Buka tautan langsung" aria-label="Buka tautan langsung di tab baru">
+          <a id="modalOpenLink" href="#" target="_blank" rel="noopener noreferrer" class="p-2.5 text-slate-500 hover:text-navy-900 hover:bg-slate-200/70 rounded-lg transition" title="Buka tautan eksternal">
             <i data-lucide="external-link" class="w-4 h-4"></i>
           </a>
-          <button id="modalFullscreenBtn" type="button" class="p-2.5 text-slate-500 hover:text-navy-900 hover:bg-slate-200/60 rounded-lg transition" title="Layar penuh" aria-label="Tampilan layar penuh">
+          <button id="modalFullscreenBtn" type="button" class="p-2.5 text-slate-500 hover:text-navy-900 hover:bg-slate-200/70 rounded-lg transition" title="Layar penuh">
             <i data-lucide="maximize-2" class="w-4 h-4"></i>
           </button>
-          <button id="modalCloseBtn" type="button" class="p-2.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition" aria-label="Tutup pratinjau">
+          <div class="w-px h-6 bg-slate-300 mx-1"></div>
+          <button id="modalCloseBtn" type="button" class="p-2.5 text-red-500 hover:text-white hover:bg-red-500 rounded-lg transition" title="Tutup pratinjau">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
         </div>
       </div>
-      <p class="text-[11px] text-slate-400 px-5 md:px-6 py-1.5 bg-slate-50 border-b border-slate-200 flex items-center gap-1">
-        <i data-lucide="info" class="w-3 h-3 shrink-0"></i>
-        Jika pratinjau tampak kosong, situs sumber mungkin memblokir tampilan sematan — gunakan ikon buka-tautan di atas.
-      </p>
+
+      <!-- Peringatan Keamanan & Batasan Iframe -->
+      <div class="bg-amber-50 border-b border-amber-200 px-5 py-2 flex items-start sm:items-center gap-2 text-[10px] sm:text-[11px] text-amber-800">
+        <i data-lucide="shield-alert" class="w-3.5 h-3.5 shrink-0 mt-0.5 sm:mt-0"></i>
+        <p>Jika pratinjau buku terblokir atau kosong, platform sumber tidak mengizinkan pratinjau jendela (*iframe block*). Klik ikon <strong>buka tautan eksternal</strong> di atas untuk membaca.</p>
+      </div>
+      
+      <!-- Area Render Iframe -->
       <div class="flex-grow bg-slate-900 relative">
         <div id="modalLoading" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 gap-2 z-0">
           <i data-lucide="loader-circle" class="w-6 h-6 animate-spin"></i>
-          <p class="text-xs">Memuat pratinjau...</p>
+          <p class="text-xs">Memuat modul interaktif...</p>
         </div>
-        <div id="modalFallback" class="absolute inset-0 hidden flex-col items-center justify-center text-center text-slate-300 gap-3 px-6 z-10">
-          <i data-lucide="alert-triangle" class="w-8 h-8 text-gold-400"></i>
-          <p class="text-sm max-w-xs">Pratinjau tidak kunjung termuat. Tautan mungkin tidak valid, atau server sumber tidak merespons.</p>
-          <a id="modalFallbackLink" href="#" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold bg-gold-500 hover:bg-gold-600 text-navy-950 px-4 py-2 rounded-lg transition">
-            Buka Tautan Langsung
+        <div id="modalFallback" class="absolute inset-0 hidden flex-col items-center justify-center text-center text-slate-300 gap-3 px-6 z-10 bg-slate-900/95 backdrop-blur-md">
+          <i data-lucide="server-crash" class="w-10 h-10 text-gold-400"></i>
+          <p class="text-sm max-w-sm">Koneksi pratinjau melampaui batas waktu (*timeout*). Lanjutkan membaca langsung di platform penyedia.</p>
+          <a id="modalFallbackLink" href="#" target="_blank" rel="noopener noreferrer" class="text-xs font-bold uppercase tracking-wider bg-gold-500 hover:bg-gold-600 text-navy-950 px-5 py-2.5 rounded-lg transition shadow-lg mt-2">
+            Buka Jendela Baru
           </a>
         </div>
         <iframe id="modalIframe" src="" class="w-full h-full border-0 relative z-[1]" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allowfullscreen></iframe>
@@ -318,11 +305,12 @@
     </div>
   </div>
 
-  <!-- Firebase Integration -->
+  <!-- Firebase & Logika Aplikasi Web -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+    // Kredensial Asli Firebase Anda (pkm-smpn21-palu)
     const firebaseConfig = {
       apiKey: "AIzaSyB6Qy4r_FZEoAmSRkIs7Fa5RpRUA0QrpZo",
       authDomain: "pkm-smpn21-palu.firebaseapp.com",
@@ -333,12 +321,16 @@
       measurementId: "G-9GP72Z6NBJ"
     };
 
+    // Inisialisasi Firebase & Firestore
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const worksCollection = collection(db, "works");
 
+    // ==========================================
+    // FUNGSI UTILITAS & KEAMANAN (ANTI-XSS)
+    // ==========================================
     function escapeHtml(str) {
-      if (str === null || str === undefined) return '';
+      if (!str) return '';
       return String(str)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
@@ -360,23 +352,27 @@
       const root = document.getElementById('toastRoot');
       const toast = document.createElement('div');
       const isError = type === 'error';
-      toast.className = `toast flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border text-sm font-medium max-w-xs ${
+      toast.className = `toast flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border text-sm font-medium max-w-sm ${
         isError ? 'bg-red-50 border-red-200 text-red-700' : 'bg-emerald-50 border-emerald-200 text-emerald-700'
       }`;
       toast.innerHTML = `
-        <i data-lucide="${isError ? 'alert-circle' : 'check-circle-2'}" class="w-4 h-4 shrink-0"></i>
+        <i data-lucide="${isError ? 'alert-circle' : 'check-circle-2'}" class="w-5 h-5 shrink-0"></i>
         <span>${escapeHtml(message)}</span>
       `;
       root.appendChild(toast);
       lucide.createIcons();
       setTimeout(() => {
-        toast.style.transition = 'all 0.25s ease-in';
+        toast.style.transition = 'all 0.3s ease-in';
         toast.style.opacity = '0';
-        toast.style.transform = 'translateX(12px)';
-        setTimeout(() => toast.remove(), 260);
-      }, 3800);
+        toast.style.transform = 'translateX(20px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
     }
 
+    // ==========================================
+    // LOGIKA VALIDASI & PENGIRIMAN FORMULIR
+    // ==========================================
+    const ALL_FIELDS = ['teacherName', 'subjectCluster', 'workTitle', 'hotsDescription', 'flipbookUrl', 'handoutUrl', 'videoUrl', 'canvaUrl'];
     const REQUIRED_FIELDS = ['teacherName', 'subjectCluster', 'workTitle', 'hotsDescription', 'flipbookUrl'];
 
     function setFieldError(id, message) {
@@ -399,29 +395,38 @@
       let isValid = true;
       let firstInvalid = null;
 
-      REQUIRED_FIELDS.forEach((id) => {
+      ALL_FIELDS.forEach((id) => {
         const field = document.getElementById(id);
         const value = field.value.trim();
 
-        if (!value) {
-          setFieldError(id, 'Kolom ini wajib diisi.');
+        // Cek input wajib
+        if (REQUIRED_FIELDS.includes(id) && !value) {
+          setFieldError(id, 'Bagian ini wajib diisi.');
           isValid = false;
           if (!firstInvalid) firstInvalid = field;
-          return;
-        }
-
-        if (id === 'flipbookUrl' && !sanitizeUrl(value)) {
-          setFieldError(id, 'Masukkan tautan yang valid (diawali https://).');
+        } 
+        // Cek validitas format tautan URL (Baik untuk kolom wajib maupun opsional yang diisi)
+        else if (value && ['flipbookUrl', 'handoutUrl', 'videoUrl', 'canvaUrl'].includes(id) && !sanitizeUrl(value)) {
+          setFieldError(id, 'Format URL tidak valid. Pastikan dimulai dengan https://');
           isValid = false;
           if (!firstInvalid) firstInvalid = field;
-          return;
+        } 
+        // Jika lolos semua tes
+        else {
+          clearFieldError(id);
         }
-
-        clearFieldError(id);
       });
 
+      if (firstInvalid) firstInvalid.focus();
       return isValid;
     }
+
+    // Hilangkan warna merah secara *real-time* saat pengguna mengetik
+    ALL_FIELDS.forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        if (document.getElementById(id).value.trim()) clearFieldError(id);
+      });
+    });
 
     const form = document.getElementById("submissionForm");
     const submitBtn = document.getElementById("submitBtn");
@@ -432,13 +437,14 @@
       e.preventDefault();
 
       if (!validateForm()) {
-        showToast('error', 'Periksa kembali kolom yang ditandai merah.');
+        showToast('error', 'Gagal mengirim! Periksa peringatan berwarna merah pada formulir.');
         return;
       }
 
+      // Kunci tombol (*loading state*)
       submitBtn.disabled = true;
-      submitBtnIcon.innerHTML = '<i data-lucide="loader-circle" class="w-4 h-4 animate-spin"></i>';
-      submitBtnText.textContent = 'Mengunggah...';
+      submitBtnIcon.innerHTML = '<i data-lucide="loader-circle" class="w-4 h-4 animate-spin text-gold-500"></i>';
+      submitBtnText.textContent = 'Menyimpan ke peladen...';
       lucide.createIcons();
 
       try {
@@ -448,19 +454,20 @@
           workTitle: document.getElementById("workTitle").value.trim(),
           hotsDescription: document.getElementById("hotsDescription").value.trim(),
           flipbookUrl: document.getElementById("flipbookUrl").value.trim(),
-          handoutUrl: document.getElementById("handoutUrl").value.trim(),
-          videoUrl: document.getElementById("videoUrl").value.trim(),
+          handoutUrl: document.getElementById("handoutUrl").value.trim(), // Baru
+          videoUrl: document.getElementById("videoUrl").value.trim(),     // Baru
           canvaUrl: document.getElementById("canvaUrl").value.trim(),
           createdAt: serverTimestamp()
         });
 
         form.reset();
-        REQUIRED_FIELDS.forEach(clearFieldError);
-        showToast('success', 'Karya berhasil diunggah ke galeri!');
+        ALL_FIELDS.forEach(clearFieldError);
+        showToast('success', 'Hebat! Karya Digital Anda berhasil dipublikasikan ke Galeri.');
       } catch (err) {
-        console.error("Error adding document: ", err);
-        showToast('error', 'Gagal mengunggah karya. Periksa koneksi internet Anda.');
+        console.error("Kesalahan Firestore:", err);
+        showToast('error', 'Koneksi terputus. Gagal menyinkronkan data dengan Firebase.');
       } finally {
+        // Kembalikan tombol ke keadaan normal
         submitBtn.disabled = false;
         submitBtnIcon.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i>';
         submitBtnText.textContent = 'Unggah Karya ke Galeri';
@@ -468,6 +475,9 @@
       }
     });
 
+    // ==========================================
+    // LOGIKA GALERI & FILTERING (REAL-TIME)
+    // ==========================================
     const CLUSTERS = ['Semua', 'Bahasa', 'MIPA', 'IPS & PKn', 'Lainnya'];
     let allWorks = [];
     let activeCluster = 'Semua';
@@ -486,14 +496,14 @@
       const wrap = document.getElementById('clusterFilters');
       wrap.innerHTML = CLUSTERS.map((c) => `
         <button type="button" data-cluster="${escapeHtml(c)}"
-          class="filter-pill text-[11px] font-semibold px-3 py-1.5 rounded-full border transition ${
+          class="text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border transition-all ${
             c === activeCluster
-              ? 'bg-navy-900 text-white border-navy-900'
-              : 'bg-white text-slate-600 border-slate-200 hover:border-navy-300'
+              ? 'bg-navy-900 text-gold-400 border-navy-900 shadow-md'
+              : 'bg-white text-slate-500 border-slate-200 hover:border-navy-300 hover:text-navy-700'
           }">${escapeHtml(c)}</button>
       `).join('');
 
-      wrap.querySelectorAll('.filter-pill').forEach((btn) => {
+      wrap.querySelectorAll('button').forEach((btn) => {
         btn.addEventListener('click', () => {
           activeCluster = btn.dataset.cluster;
           renderClusterFilters();
@@ -509,77 +519,92 @@
 
     function applyFiltersAndRender() {
       const filtered = allWorks.filter((item) => {
-        const matchesCluster = activeCluster === 'Semua' || item.subjectCluster === activeCluster;
+        const matchCluster = activeCluster === 'Semua' || item.subjectCluster === activeCluster;
         const haystack = `${item.teacherName || ''} ${item.workTitle || ''}`.toLowerCase();
-        const matchesSearch = !searchTerm || haystack.includes(searchTerm.toLowerCase());
-        return matchesCluster && matchesSearch;
+        const matchSearch = !searchTerm || haystack.includes(searchTerm.toLowerCase());
+        return matchCluster && matchSearch;
       });
       renderGallery(filtered);
     }
 
+    // Pembuatan Kartu Karya dengan Tombol Lengkap
     function buildCard(item) {
       const card = document.createElement('div');
-      card.className = "card-enter bg-white rounded-2xl border border-slate-200 shadow-card hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-200 flex flex-col overflow-hidden";
+      card.className = "card-enter bg-white rounded-2xl border border-slate-200 shadow-card hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden";
 
+      // Sanitasi setiap URL yang ditarik dari DB
       const safeFlipbook = sanitizeUrl(item.flipbookUrl);
-      const safeHandout = sanitizeUrl(item.handoutUrl);
-      const safeVideo = sanitizeUrl(item.videoUrl);
-      const safeCanva = sanitizeUrl(item.canvaUrl);
+      const safeHandout  = sanitizeUrl(item.handoutUrl);
+      const safeVideo    = sanitizeUrl(item.videoUrl);
+      const safeCanva    = sanitizeUrl(item.canvaUrl);
+      
       const badgeClasses = clusterBadgeClasses(item.subjectCluster);
 
       card.innerHTML = `
         <div class="p-5 flex-grow flex flex-col">
           <div class="flex items-center justify-between mb-3">
-            <span class="inline-flex px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide rounded-md border ${badgeClasses}">${escapeHtml(item.subjectCluster || 'Umum')}</span>
+            <span class="inline-flex px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest rounded border ${badgeClasses}">
+              ${escapeHtml(item.subjectCluster || 'Umum')}
+            </span>
           </div>
-          <h3 class="font-bold text-slate-900 text-[15px] leading-snug mb-1">${escapeHtml(item.workTitle)}</h3>
-          <p class="text-xs text-slate-500 mb-3 font-medium">Oleh: ${escapeHtml(item.teacherName)}</p>
-          <blockquote class="text-xs text-slate-600 line-clamp-3 bg-slate-50 border-l-2 border-gold-500 pl-3 py-2 rounded-r-lg italic leading-relaxed mb-4">
+          <h3 class="font-extrabold text-slate-900 text-base leading-snug mb-1">${escapeHtml(item.workTitle)}</h3>
+          <p class="text-[12px] text-slate-500 mb-4 font-medium flex items-center gap-1.5">
+            <i data-lucide="user" class="w-3.5 h-3.5 text-slate-400"></i> ${escapeHtml(item.teacherName)}
+          </p>
+          <blockquote class="text-[12px] text-slate-600 line-clamp-3 bg-slate-50/80 border-l-[3px] border-gold-400 pl-3 py-2 rounded-r-lg italic leading-relaxed mb-4">
             "${escapeHtml(item.hotsDescription)}"
           </blockquote>
         </div>
 
-        <div class="px-5 pb-5 pt-1 space-y-2 text-xs">
-          <!-- Primary Action: Flipbook Modal Preview -->
-          <button type="button" class="preview-trigger w-full bg-navy-900 hover:bg-navy-800 text-white py-2 rounded-lg transition font-semibold text-center inline-flex items-center justify-center gap-1.5">
-            <i data-lucide="book-open" class="w-3.5 h-3.5 text-gold-400"></i> Baca Buku Digital (Flipbook)
+        <div class="px-5 pb-5 space-y-2">
+          <!-- Aksi Utama -->
+          <button type="button" class="preview-trigger w-full bg-navy-900 hover:bg-navy-800 text-white py-2.5 rounded-lg transition font-semibold text-sm text-center inline-flex items-center justify-center gap-2 shadow-sm">
+            <i data-lucide="book-open" class="w-4 h-4 text-gold-400"></i> Baca Buku Digital
           </button>
 
-          <!-- Secondary Actions Grid -->
-          <div class="grid grid-cols-3 gap-1.5">
-            ${safeHandout ? `
-              <a href="${escapeHtml(safeHandout)}" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition flex items-center justify-center gap-1 font-medium text-[11px]" title="Unduh / Lihat Handout">
-                <i data-lucide="file-text" class="w-3 h-3 text-indigo-600"></i> Handout
-              </a>
-            ` : `
-              <button disabled class="px-2 py-1.5 border border-slate-100 text-slate-300 rounded-lg cursor-not-allowed flex items-center justify-center gap-1 text-[11px]">
-                <i data-lucide="file-text" class="w-3 h-3"></i> Handout
-              </button>
-            `}
+          <!-- Grid Aksi Sekunder (Handout | Video | Canva) -->
+          <div class="grid grid-cols-3 gap-2 mt-2">
+            
+            <!-- Tombol Handout -->
+            ${safeHandout 
+              ? `<a href="${escapeHtml(safeHandout)}" target="_blank" rel="noopener noreferrer" class="px-2 py-2 border border-slate-200 text-slate-700 bg-white rounded-lg hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-700 transition flex flex-col items-center justify-center gap-1 group" title="Unduh Modul PDF">
+                  <i data-lucide="file-text" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600"></i>
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Modul</span>
+                 </a>` 
+              : `<div class="px-2 py-2 border border-slate-100 bg-slate-50 text-slate-300 rounded-lg flex flex-col items-center justify-center gap-1 opacity-60 cursor-not-allowed">
+                  <i data-lucide="file-text" class="w-4 h-4"></i>
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Modul</span>
+                 </div>`
+            }
 
-            ${safeVideo ? `
-              <a href="${escapeHtml(safeVideo)}" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition flex items-center justify-center gap-1 font-medium text-[11px]" title="Tonton Video Pembelajaran">
-                <i data-lucide="video" class="w-3 h-3 text-red-600"></i> Video
-              </a>
-            ` : `
-              <button disabled class="px-2 py-1.5 border border-slate-100 text-slate-300 rounded-lg cursor-not-allowed flex items-center justify-center gap-1 text-[11px]">
-                <i data-lucide="video" class="w-3 h-3"></i> Video
-              </button>
-            `}
+            <!-- Tombol Video -->
+            ${safeVideo 
+              ? `<a href="${escapeHtml(safeVideo)}" target="_blank" rel="noopener noreferrer" class="px-2 py-2 border border-slate-200 text-slate-700 bg-white rounded-lg hover:bg-red-50 hover:border-red-200 hover:text-red-700 transition flex flex-col items-center justify-center gap-1 group" title="Tonton Video Pembelajaran">
+                  <i data-lucide="youtube" class="w-4 h-4 text-slate-400 group-hover:text-red-600"></i>
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Video</span>
+                 </a>` 
+              : `<div class="px-2 py-2 border border-slate-100 bg-slate-50 text-slate-300 rounded-lg flex flex-col items-center justify-center gap-1 opacity-60 cursor-not-allowed">
+                  <i data-lucide="youtube" class="w-4 h-4"></i>
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Video</span>
+                 </div>`
+            }
 
-            ${safeCanva ? `
-              <a href="${escapeHtml(safeCanva)}" target="_blank" rel="noopener noreferrer" class="px-2 py-1.5 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition flex items-center justify-center gap-1 font-medium text-[11px]" title="Buka Desain Canva">
-                <i data-lucide="external-link" class="w-3 h-3 text-cyan-600"></i> Canva
-              </a>
-            ` : `
-              <button disabled class="px-2 py-1.5 border border-slate-100 text-slate-300 rounded-lg cursor-not-allowed flex items-center justify-center gap-1 text-[11px]">
-                <i data-lucide="external-link" class="w-3 h-3"></i> Canva
-              </button>
-            `}
+            <!-- Tombol Canva -->
+            ${safeCanva 
+              ? `<a href="${escapeHtml(safeCanva)}" target="_blank" rel="noopener noreferrer" class="px-2 py-2 border border-slate-200 text-slate-700 bg-white rounded-lg hover:bg-cyan-50 hover:border-cyan-200 hover:text-cyan-700 transition flex flex-col items-center justify-center gap-1 group" title="Buka Master Canva">
+                  <i data-lucide="pen-tool" class="w-4 h-4 text-slate-400 group-hover:text-cyan-600"></i>
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Canva</span>
+                 </a>` 
+              : `<div class="px-2 py-2 border border-slate-100 bg-slate-50 text-slate-300 rounded-lg flex flex-col items-center justify-center gap-1 opacity-60 cursor-not-allowed">
+                  <i data-lucide="pen-tool" class="w-4 h-4"></i>
+                  <span class="text-[10px] font-bold uppercase tracking-wider">Canva</span>
+                 </div>`
+            }
           </div>
         </div>
       `;
 
+      // Listener khusus tombol Modal Flipbook
       card.querySelector('.preview-trigger').addEventListener('click', () => {
         openPreviewModal(safeFlipbook, item.workTitle, item.teacherName);
       });
@@ -593,9 +618,9 @@
 
       if (allWorks.length === 0) {
         container.innerHTML = `
-          <div class="col-span-full py-16 text-center text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">
-            <i data-lucide="inbox" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
-            <p class="text-sm">Belum ada karya yang diunggah.</p>
+          <div class="col-span-full py-16 text-center text-slate-400 bg-white rounded-2xl border border-dashed border-slate-300">
+            <i data-lucide="inbox" class="w-8 h-8 mx-auto mb-3 text-slate-300"></i>
+            <p class="text-sm">Ruang galeri masih kosong. Jadilah yang pertama mengirimkan karya!</p>
           </div>`;
         lucide.createIcons();
         return;
@@ -603,9 +628,9 @@
 
       if (list.length === 0) {
         container.innerHTML = `
-          <div class="col-span-full py-16 text-center text-slate-400 bg-white rounded-2xl border border-dashed border-slate-200">
-            <i data-lucide="search-x" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
-            <p class="text-sm">Tidak ada karya yang cocok dengan pencarian/filter Anda.</p>
+          <div class="col-span-full py-16 text-center text-slate-400 bg-white rounded-2xl border border-dashed border-slate-300">
+            <i data-lucide="search-x" class="w-8 h-8 mx-auto mb-3 text-slate-300"></i>
+            <p class="text-sm">Tidak ditemukan karya dengan kata kunci atau filter tersebut.</p>
           </div>`;
         lucide.createIcons();
         return;
@@ -615,20 +640,23 @@
       lucide.createIcons();
     }
 
+    // Mendengarkan perubahan Firestore
     const q = query(worksCollection, orderBy("createdAt", "desc"));
     onSnapshot(q, (snapshot) => {
       allWorks = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-      document.getElementById('cardCount').innerHTML =
-        `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> ${allWorks.length} Karya Terbit`;
+      // Pembaruan Angka Counter Hero
       document.getElementById('heroWorkCount').textContent = allWorks.length;
-
+      
       applyFiltersAndRender();
     }, (error) => {
       console.error("Gallery listener error:", error);
-      showToast('error', 'Gagal memuat galeri. Periksa koneksi internet Anda.');
+      showToast('error', 'Gagal memuat galeri. Sistem akan mencoba kembali.');
     });
 
+    // ==========================================
+    // LOGIKA MODAL IFRAME
+    // ==========================================
     const modal = document.getElementById('previewModal');
     const modalPanel = document.getElementById('modalPanel');
     const modalIframe = document.getElementById('modalIframe');
@@ -646,7 +674,7 @@
       lastFocusedElement = document.activeElement;
 
       document.getElementById("modalTitle").innerText = title || 'Pratinjau Buku Digital';
-      document.getElementById("modalAuthor").innerText = author ? `Oleh: ${author}` : '';
+      document.getElementById("modalAuthor").innerText = author ? `Kreator: ${author}` : '';
       modalOpenLink.href = url || '#';
       modalFallbackLink.href = url || '#';
 
@@ -658,17 +686,12 @@
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
-      modalCloseBtn.focus();
-
-      if (!url) {
-        modalLoading.classList.add('hidden');
-        modalFallback.classList.remove('hidden');
-        modalFallback.classList.add('flex');
-        return;
-      }
+      
+      if (!url) return;
 
       modalIframe.src = url;
 
+      // Cek timeout (jika Heyzine memblokir loading)
       clearTimeout(modalLoadTimer);
       modalLoadTimer = setTimeout(() => {
         if (!modalLoading.classList.contains('hidden')) {
@@ -676,7 +699,7 @@
           modalFallback.classList.remove('hidden');
           modalFallback.classList.add('flex');
         }
-      }, 8000);
+      }, 7000);
     };
 
     modalIframe.addEventListener('load', () => {
@@ -701,24 +724,19 @@
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-        window.closePreviewModal();
-      }
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) window.closePreviewModal();
     });
 
+    // Logika Layar Penuh Modal
     function exitModalFullscreen() {
       modalPanel.classList.remove('modal-fullscreen');
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-      }
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     }
 
     modalFullscreenBtn.addEventListener('click', () => {
       if (modalPanel.requestFullscreen) {
         if (!document.fullscreenElement) {
-          modalPanel.requestFullscreen().catch(() => {
-            modalPanel.classList.toggle('modal-fullscreen');
-          });
+          modalPanel.requestFullscreen().catch(() => modalPanel.classList.toggle('modal-fullscreen'));
         } else {
           document.exitFullscreen().catch(() => {});
         }
@@ -733,6 +751,7 @@
       lucide.createIcons();
     });
 
+    // Mulai render statis UI
     renderClusterFilters();
     lucide.createIcons();
   </script>
