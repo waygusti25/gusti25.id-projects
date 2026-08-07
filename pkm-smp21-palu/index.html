@@ -203,9 +203,9 @@
               <p class="text-[11px] text-slate-400 mt-1">Penjelasan penggunaan Canva & Flipbook.</p>
             </div>
           </div>
-          <button onclick="openPreviewModal('https://www.youtube.com/embed/aEqujpjZ6hM', 'Video Penjelasan Materi Penyusunan Bahan Ajar Digital', 'Tim PkM PBI UNTAD')" class="shrink-0 relative z-10 bg-red-500/10 hover:bg-red-500 border border-red-500/30 hover:border-red-400 text-red-300 hover:text-white px-5 py-3 rounded-2xl text-xs font-bold tracking-wide transition-all duration-300 flex items-center gap-2 hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
-            <i data-lucide="video" class="w-4 h-4"></i> Tonton Video
-          </button>
+          <button onclick="openPreviewModal('https://www.youtube.com/watch?v=aEqujpjZ6hM', 'Video Penjelasan Materi Penyusunan Bahan Ajar Digital', 'Tim PkM PBI UNTAD')" class="shrink-0 relative z-10 bg-red-500/10 hover:bg-red-500 border border-red-500/30 hover:border-red-400 text-red-300 hover:text-white px-5 py-3 rounded-2xl text-xs font-bold tracking-wide transition-all duration-300 flex items-center gap-2 hover:shadow-[0_0_20px_rgba(239,68,68,0.4)]">
+  <i data-lucide="video" class="w-4 h-4"></i> Tonton Video
+</button>
         </div>
       </div>
     </section>
@@ -383,8 +383,15 @@
             Buka di Tab Baru <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
         </div>
-        <iframe id="modalIframe" src="" class="w-full h-full border-0 relative z-[1]" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" allowfullscreen></iframe>
-      </div>
+        <!-- FIXED CODE -->
+<iframe 
+  id="modalIframe" 
+  src="" 
+  class="w-full h-full border-0 relative z-[1]" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen>
+</iframe>
     </div>
   </div>
 
@@ -684,30 +691,53 @@
     let lastFocusedElement = null;
 
     window.openPreviewModal = (url, title, author) => {
-      lastFocusedElement = document.activeElement;
-      document.getElementById("modalTitle").innerText = title || 'Pratinjau Dokumen';
-      document.getElementById("modalAuthor").innerText = author ? `Oleh: ${author}` : '';
-      
-      document.getElementById('modalOpenLink').href = url || '#';
-      document.getElementById('modalFallbackLink').href = url || '#';
+  lastFocusedElement = document.activeElement;
+  document.getElementById("modalTitle").innerText = title || 'Pratinjau Dokumen';
+  document.getElementById("modalAuthor").innerText = author ? `Oleh: ${author}` : '';
+  
+  document.getElementById('modalOpenLink').href = url || '#';
+  document.getElementById('modalFallbackLink').href = url || '#';
 
-      modalLoading.classList.remove('hidden'); modalLoading.classList.add('flex');
-      modalFallback.classList.add('hidden'); modalFallback.classList.remove('flex');
-      modal.classList.remove('hidden'); modal.classList.add('flex');
-      document.body.style.overflow = 'hidden';
+  const iframe = document.getElementById('modalIframe');
 
-      if (!url) return;
-      modalIframe.src = url;
+  // Check if the URL is a YouTube video
+  const isYouTube = url.includes('youtube.com') || url.includes('youtu.be') || url.includes('youtube-nocookie.com');
 
-      clearTimeout(modalLoadTimer);
-      modalLoadTimer = setTimeout(() => {
-        if (!modalLoading.classList.contains('hidden')) {
-          modalLoading.classList.add('hidden');
-          modalFallback.classList.remove('hidden');
-          modalFallback.classList.add('flex');
-        }
-      }, 8000);
-    };
+  if (isYouTube) {
+    // Format URL for YouTube embed with proper origin policy attributes
+    let ytUrl = url;
+    if (!ytUrl.includes('/embed/')) {
+      const videoId = ytUrl.split('v=')[1]?.split('&')[0] || ytUrl.split('/').pop();
+      ytUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
+    }
+    
+    // Append essential YouTube player parameters
+    const origin = window.location.origin === 'null' ? '*' : window.location.origin;
+    ytUrl += (ytUrl.includes('?') ? '&' : '?') + `enablejsapi=1&origin=${encodeURIComponent(origin)}`;
+
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    iframe.removeAttribute('sandbox'); // Remove sandbox completely for YouTube
+    iframe.src = ytUrl;
+  } else {
+    // For non-YouTube links (PDFs, Heyzine Flipbooks, Drive docs)
+    iframe.src = url;
+  }
+
+  modalLoading.classList.remove('hidden'); modalLoading.classList.add('flex');
+  modalFallback.classList.add('hidden'); modalFallback.classList.remove('flex');
+  modal.classList.remove('hidden'); modal.classList.add('flex');
+  document.body.style.overflow = 'hidden';
+
+  clearTimeout(modalLoadTimer);
+  modalLoadTimer = setTimeout(() => {
+    if (!modalLoading.classList.contains('hidden')) {
+      modalLoading.classList.add('hidden');
+      modalFallback.classList.remove('hidden');
+      modalFallback.classList.add('flex');
+    }
+  }, 8000);
+};
+
 
     modalIframe.addEventListener('load', () => {
       clearTimeout(modalLoadTimer);
